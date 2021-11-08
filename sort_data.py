@@ -1,7 +1,9 @@
 import pandas as pd
 from load_data import create_df
 
-noc_regions, athlete_event = create_df()
+athlete_event, noc_regions = create_df()
+
+#def olympic_medals_seasons_years(dataframe)
 
 medalists = athlete_event.dropna(subset=['Medal'])
 
@@ -17,6 +19,9 @@ olympic_winter_years = list(olympic_winter_years)
 olympic_winter_years.sort()
 
 def medal_sets(dataframe, years: list)-> dict :
+    """
+    Returns a dictionary, with olympic years as keys and number of medal sets distributed as values.
+    """
     olympic_medal_distributed = []
     for year in years:
         df = dataframe[dataframe["Year"] == year]
