@@ -6,3 +6,4 @@ import plotly_express as px
 import plotly
 
 def bar_plot():
+    pass
