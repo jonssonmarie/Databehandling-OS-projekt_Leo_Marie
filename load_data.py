@@ -8,7 +8,7 @@ os.chdir(path)
 
 def create_df():
     file_list = []
-    for file in os.listdir():
+    for file in sorted(os.listdir()):
         if file.endswith(".csv"):
             file_path = f"../{path}{file}"
             file_list.append(file_path)
@@ -20,3 +20,5 @@ def create_df():
 
 # to be set in next py file
 athlete, noc = create_df()
+
+print(athlete)
