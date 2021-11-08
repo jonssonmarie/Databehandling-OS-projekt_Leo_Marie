@@ -20,3 +20,5 @@ def create_df():
 
 # to be set in next py file
 athlete, noc = create_df()
+
+print(athlete.head())
