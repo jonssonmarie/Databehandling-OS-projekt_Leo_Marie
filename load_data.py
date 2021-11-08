@@ -15,7 +15,8 @@ for file in os.listdir():
 def create_df(lst):
     athlete_event = pd.read_csv(lst[0])
     noc_regions = pd.read_csv(lst[1])
-    #print(athlete_event.head())
+    return athlete_event, noc_regions
+
 
 
 # TO BE DONE set in next py file ex statistic
