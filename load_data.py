@@ -5,23 +5,18 @@ import pandas as pd
 path = r"Data/"
 os.chdir(path)
 
-file_list = []
-for file in os.listdir():
-    if file.endswith(".csv"):
-        file_path = f"../{path}{file}"
-        file_list.append(file_path)
 
+def create_df():
+    file_list = []
+    for file in os.listdir():
+        if file.endswith(".csv"):
+            file_path = f"../{path}{file}"
+            file_list.append(file_path)
 
-def create_df(lst):
-    athlete_event = pd.read_csv(lst[0])
-    noc_regions = pd.read_csv(lst[1])
+    athlete_event = pd.read_csv(file_list[0])
+    noc_regions = pd.read_csv(file_list[1])
     return athlete_event, noc_regions
 
 
-
-# TO BE DONE set in next py file ex statistic
-athlete, noc = create_df(file_list)
-
-
-
-
+# to be set in next py file
+athlete, noc = create_df()
