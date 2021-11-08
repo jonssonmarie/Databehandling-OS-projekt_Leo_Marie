@@ -5,10 +5,8 @@ import pandas as pd
 path = r"Data/"
 os.chdir(path)
 
-
 file_list = []
 for file in os.listdir():
-
     if file.endswith(".csv"):
         file_path = f"../{path}{file}"
         file_list.append(file_path)
