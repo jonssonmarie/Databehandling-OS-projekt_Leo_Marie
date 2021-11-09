@@ -18,6 +18,7 @@ def main():
     start = time.time()
     athlete_event, noc_regions = create_df()
 
+    # obs: anonymous name after here
     athlete_event = anonymous(athlete_event)
     medals_france = sort_france_medals(athlete_event)
     medals_sport = (count_medals_per_sport(medals_france))
