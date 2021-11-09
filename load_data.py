@@ -7,6 +7,9 @@ os.chdir(path)
 
 
 def create_df():
+    """ read files with tail .csv from a specified folder and create dataframes
+    :return: dataframes
+    """
     file_list = []
     for file in sorted(os.listdir()):
         if file.endswith(".csv"):
@@ -16,9 +19,3 @@ def create_df():
     athlete_event = pd.read_csv(file_list[0])
     noc_regions = pd.read_csv(file_list[1])
     return athlete_event, noc_regions
-
-
-# to be set in next py file
-athlete, noc = create_df()
-
-print(athlete)
