@@ -10,6 +10,20 @@ def possible_medals(athletes_dataframe)-> ndarray:
     medal_types = medal_types['Medal'].unique()
     return medal_types
 
+def seasonize(athletes_dataframe, season = "all")-> DataFrame :
+    """
+    Returns a dataframe according to olympic season, summer or winter
+    """
+    if season == "Summer" or season == "Winter":
+        df = athletes_dataframe.loc[athletes_dataframe['Season'] == f'{season}']
+    elif season == "all":
+        df = athletes_dataframe
+        print("No season given, all seasons still inculded, dataframe not seasonalized")
+    else:
+        raise ValueError(f"Season can either be Winter, SUmmer, or all, not {season}")
+    return df
+
+
 def age_proofed_dataframe(athletes_dataframe)-> pd.DataFrame:
     """Returns a dataframe filtered from athletes without age given, and duplicate athletes names are erased """
     df = athletes_dataframe.dropna(subset=['Age'])
@@ -22,12 +36,15 @@ def age_stats(dataframe)-> pd.Series: #Utveckla funktionen så att statistiken k
     stats = dataframe.groupby(['Sex']).Age.agg(['mean', 'median', 'min', 'max', 'std' ])
     return stats
 
-def athletes_by_sex_ratio(dataframe) -> pd.DataFrame:
-    #TODO
-    pass
+def athletes_by_sex_ratio(dataframe, season = "all") -> pd.DataFrame:
+    df = seasonize(dataframe, season)
+    count_M = len(df.loc[dataframe["Sex"] == "M"])
+    count_F = len(df.loc[dataframe["Sex"] == "F"])
+    output_df = pd.DataFrame({"Sex" : ["F", "M"], "Count" : [count_F, count_M]})
+    return output_df
 
-def athletes_by_sex_ratio_over_time(dataframe, season = "Summer") -> pd.DataFrame:
-    df = dataframe[dataframe['Season'] == f'{season}']
+def athletes_by_sex_ratio_over_time(dataframe, season = "all") -> pd.DataFrame:
+    df = seasonize(dataframe, season)
     df.drop_duplicates(subset ="Name", keep = 'first', inplace = True)
 
     years = olympic_years(df)
@@ -48,12 +65,12 @@ def athletes_by_sex_ratio_over_time(dataframe, season = "Summer") -> pd.DataFram
     return output_df
 
 
-def olympic_medals_by_season(athletes_dataframe: DataFrame, season = "Summer")-> DataFrame :
+def olympic_medalists(athletes_dataframe: DataFrame, season = "all")-> DataFrame :
     """
-    Takes in the athletes dataframe and returns it filtered by season, and with medalists only
+    Takes in the athletes dataframe and returns it filtered with medalists only. A season can be passed as argument.
     """
     df = athletes_dataframe.dropna(subset=['Medal'])
-    df = df[df['Season'] == f'{season}']
+    df = seasonize(df, season)
     return df
 
 def top_10_nations_medals():
