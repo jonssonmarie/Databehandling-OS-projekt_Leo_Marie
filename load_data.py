@@ -6,7 +6,7 @@ path = r"Data/"
 os.chdir(path)
 
 
-def create_df() -> object:
+def create_df():
     """ read all files with end ".csv" from a specified folder and create dataframes
     :return: dataframes
     """
