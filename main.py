@@ -3,7 +3,7 @@ import time
 from land_statistic import anonymous, age_per_os, sort_france_medals, count_medals_per_sport, medals_per_os
 from load_data import create_df
 from create_plot import histogram_plot, bar_plot
-from sort_data import possible_medal, age_proofed_dataframe, age_stats, athletes_by_sex_ratio 
+from sort_data import possible_medals, age_proofed_dataframe, age_stats, athletes_by_sex_ratio 
 from sort_data import athletes_by_sex_ratio_over_time, medal_sets
 
 

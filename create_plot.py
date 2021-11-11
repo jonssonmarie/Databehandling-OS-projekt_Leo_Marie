@@ -6,7 +6,7 @@ import plotly_express as px
 import plotly
 
 
-def bar_plot(df, x_value, y_value, an_title, y_name, color_name, html_path):  # html_path ändrat inte vs code
+def bar_plot(df, x_value, y_value, an_title, y_name, color_name, html_path):
     """
     :param df: 
     :param x_value: 
