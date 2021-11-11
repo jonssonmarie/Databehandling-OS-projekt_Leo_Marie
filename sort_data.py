@@ -101,9 +101,23 @@ def olympic_medalists(athletes_dataframe: object, season="all") -> object:
     return df
 
 
-def top_10_nations_medals():
-    # TODO
-    pass
+def top_10_nations_medals(dataframe: object, season ="all") -> object:
+    nations = dataframe["NOC"].unique()
+    df = dataframe.dropna(subset=['Medal'])
+    df = seasonize(df, season)
+    df = df.drop_duplicates(subset=["Event", "Games", "Medal", "NOC"])
+    gold_medals = []
+    silver_medals = []
+    bronze_medals = []
+    for nation in nations:
+        gold_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Gold'").shape[0])
+        silver_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Silver'").shape[0])
+        bronze_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Bronze'").shape[0])
+
+    output_df = pd.DataFrame({"Nation" : nations, "Gold" : gold_medals, "Silver" : silver_medals,  "Bronze" : bronze_medals})
+    output_df.eval("Total = Gold + Silver + Bronze", inplace = True)
+    output_df.sort_values(by=['Total'], ascending=False, inplace=True)
+    return output_df.head(10)
 
 
 def olympic_years(seasonal_dataframe: object) -> list:
