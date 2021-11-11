@@ -57,8 +57,8 @@ def athletes_by_sex_ratio(dataframe, season="all") -> object:
     :return:
     """
     df = seasonize(dataframe, season)
-    count_M = len(df.loc[dataframe["Sex"] == "M"])
-    count_F = len(df.loc[dataframe["Sex"] == "F"])
+    count_M = np.sum(df.loc[dataframe["Sex"] == "M"])
+    count_F = np.sum(df.loc[dataframe["Sex"] == "F"])
     output_df = pd.DataFrame({"Sex": ["F", "M"], "Count": [count_F, count_M]})
     return output_df
 
@@ -78,8 +78,8 @@ def athletes_by_sex_ratio_over_time(dataframe, season="all") -> object:
 
     for year in years:
         daf = df[df["Year"] == year]
-        F_count = len(daf[daf["Sex"] == "F"])
-        M_count = len(daf[daf["Sex"] == "M"])
+        F_count = np.sum(daf[daf["Sex"] == "F"])
+        M_count = np.sum(daf[daf["Sex"] == "M"])
         F_participants.append(F_count)
         M_participants.append(M_count)
 
@@ -90,7 +90,7 @@ def athletes_by_sex_ratio_over_time(dataframe, season="all") -> object:
     return output_df
 
 
-def olympic_medalists(athletes_dataframe: DataFrame, season="all") -> object:
+def olympic_medalists(athletes_dataframe: object, season="all") -> object:
     """ Takes in the athletes dataframe and returns it filtered with medalists only. A season can be passed as argument.
     :param athletes_dataframe:
     :param season:
@@ -117,7 +117,7 @@ def olympic_years(seasonal_dataframe: object) -> list:
     return o_years
 
 
-def medal_sets(athletes_dataframe: DataFrame, years: list) -> object:
+def medal_sets(athletes_dataframe: object, years: list) -> object:
     """ Returns a dataframe, with olympic years as keys and number of medal sets distributed as values.
     :param athletes_dataframe:
     :param years:
