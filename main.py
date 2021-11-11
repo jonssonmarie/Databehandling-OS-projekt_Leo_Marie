@@ -1,7 +1,10 @@
 import time
+
 from land_statistic import anonymous, age_per_os, sort_france_medals, count_medals_per_sport, medals_per_os
 from load_data import create_df
 from create_plot import histogram_plot, bar_plot
+from sort_data import possible_medal, age_proofed_dataframe, age_stats, athletes_by_sex_ratio 
+from sort_data import athletes_by_sex_ratio_over_time, medal_sets
 
 
 def call_plot(df1, df2, df3, df4, df5, df6):  # tillfällig att det är df1, df2 ... df6
@@ -46,4 +49,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    
