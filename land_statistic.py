@@ -26,7 +26,7 @@ def sort_france_medals(df) -> object:
     return medals_fra
 
 
-def count_medals_per_sport(df) -> object:
+def count_medals_per_sport(df):
     """ Count number of medals per Sport for France
     :param df: dataframe with Name anonymize
     :return: DataFrame with Sport, Medal, amount of medals for Gold, Silver and Bronze
@@ -47,7 +47,7 @@ def count_medals_per_sport(df) -> object:
     return count_medal
 
 
-def medals_per_os(df) -> object:
+def medals_per_os(df):
     """ Count number of medals per Game for France
     :param df: dataframe with Name anonymize
     :return: DataFrame with Game, Medal, amount of medals for Gold, Silver and Bronze
@@ -65,7 +65,7 @@ def medals_per_os(df) -> object:
     return count_os
 
 
-def age_per_os(df) -> object:
+def age_per_os(df):
     """
     Count how many participants there are per age for France
     :param df: dataframe with Name anonymize
