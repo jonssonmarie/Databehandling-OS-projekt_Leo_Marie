@@ -5,7 +5,7 @@ import hashlib as hl
 
 def anonymous(df) -> object:
     """
-    Anonymous the Name of the competitor names
+    Anonymous the competitor names  - ändrat i Vs code men inte gjort push
     :param df: with data of the OS
     :return: df with Name anonymous
     """
@@ -36,11 +36,13 @@ def count_medals_per_sport(df) -> object:
     count_medals = []
     for sport in sports:
         for medal in medal_value:
-            fra_gold = df[(df['Sport'] == sport) & (df['Medal'] == medal)]
-            count = np.sum(fra_gold['Medal'] == medal)
-            summary = [sport, medal, count]
+            fra_medal = df[(df['Sport'] == sport) & (df['Medal'] == medal)]  # ändrat
+            count = np.sum(fra_medal['Medal'] == medal)                         # ändrat
+            count_man = np.sum(fra_medal["Sex"] == "M")                                          # ändrat
+            count_female = np.sum(fra_medal["Sex"] == "F")
+            summary = [sport, medal, count, count_man, count_female]
             count_medals.append(summary)
-    count_medal = pd.DataFrame(count_medals, columns=['Sport', 'Medal', 'Amount'])\
+    count_medal = pd.DataFrame(count_medals, columns=['Sport', 'Medal', 'Amount', "Amount M", "Amount F"])\
                     .sort_values(by='Amount', ascending=False)
     return count_medal
 
