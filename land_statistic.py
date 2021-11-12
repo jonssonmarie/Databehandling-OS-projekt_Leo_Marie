@@ -4,8 +4,7 @@ import hashlib as hl
 
 
 def anonymous(df):
-    """
-    Anonymous the competitor names
+    """ Anonymous the competitor names
     :param df: with data of the OS
     :return: df with Name anonymize
     """
@@ -15,8 +14,7 @@ def anonymous(df):
 
 
 def sort_france_medals(df):
-    """
-    Sort the medals that France has won
+    """ Sort the medals that France has won
     :param df: dataframe with Name anonymize
     :return: df sorted on France and medals
     """
@@ -67,8 +65,7 @@ def medals_per_os(df):
 
 
 def age_per_os(df):
-    """
-    Count how many participants there are per age for France
+    """ Count how many participants there are per age for France
     :param df: dataframe with Name anonymize
     :return: DataFrame with Age, amount of ages per Age
     """
