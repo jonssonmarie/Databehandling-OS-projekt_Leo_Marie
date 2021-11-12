@@ -3,26 +3,27 @@ import numpy as np
 import hashlib as hl
 
 
-def anonymous(df) -> object:
+def anonymous(df):
     """
-    Anonymous the competitor names  - ändrat i Vs code men inte gjort push
+    Anonymous the competitor names
     :param df: with data of the OS
-    :return: df with Name anonymous
+    :return: df with Name anonymize
     """
     df["Name"] = df["Name"].astype(str)
     df["Name"] = df["Name"].apply(lambda x: hl.sha256(x.encode()).hexdigest())
     return df
 
 
-def sort_france_medals(df) -> object:
+def sort_france_medals(df):
     """
     Sort the medals that France has won
     :param df: dataframe with Name anonymize
     :return: df sorted on France and medals
     """
     df = df.drop_duplicates(subset=["Event", "Games", "Medal"])
+    df = df[['ID', 'Name', 'Sex', 'Age', 'NOC', 'Games', 'Sport', 'Medal']]     # collect the labels needed further on
     df['Medal'] = df['Medal'].astype(str)
-    medals_fra = df[(df["NOC"] == "FRA") & (df["Medal"] != "nan")]
+    medals_fra = df.query("NOC == 'FRA' & Medal != 'nan'")
     return medals_fra
 
 
@@ -36,14 +37,14 @@ def count_medals_per_sport(df):
     count_medals = []
     for sport in sports:
         for medal in medal_value:
-            fra_medal = df[(df['Sport'] == sport) & (df['Medal'] == medal)]  # ändrat
-            count = np.sum(fra_medal['Medal'] == medal)                         # ändrat
-            count_man = np.sum(fra_medal["Sex"] == "M")                                          # ändrat
-            count_female = np.sum(fra_medal["Sex"] == "F")
+            fra_medal = df.query("Sport == @sport & Medal == @medal")
+            count = np.sum(fra_medal['Medal'] == medal)
+            count_man = np.sum(fra_medal["Sex"] == 'M')
+            count_female = np.sum(fra_medal["Sex"] == 'F')
             summary = [sport, medal, count, count_man, count_female]
             count_medals.append(summary)
-    count_medal = pd.DataFrame(count_medals, columns=['Sport', 'Medal', 'Amount', "Amount M", "Amount F"])\
-                    .sort_values(by='Amount', ascending=False)
+    count_medal = pd.DataFrame(count_medals, columns=['Sport', 'Medal', 'Amount', "Amount M", "Amount F"]) \
+        .sort_values(by='Amount', ascending=False)
     return count_medal
 
 
@@ -57,7 +58,7 @@ def medals_per_os(df):
     medal_per_os = []
     for game in games:
         for medal in medal_value:
-            olympic_game = df[(df["Games"] == game) & (df["Medal"])]
+            olympic_game = df.query("Games == @game")
             count = np.sum(olympic_game["Medal"] == medal)
             summary = [game, medal, count]
             medal_per_os.append(summary)
