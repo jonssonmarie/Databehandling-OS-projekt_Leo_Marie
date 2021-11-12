@@ -24,7 +24,6 @@ def seasonize(athletes_dataframe, season="all"):
         df = athletes_dataframe.loc[athletes_dataframe['Season'] == f'{season}']
     elif season == "all":
         df = athletes_dataframe
-        print("No season given, all seasons still inculded, dataframe not seasonalized")
     else:
         raise ValueError(f"Season can either be Winter, SUmmer, or all, not {season}")
     return df
