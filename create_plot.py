@@ -70,7 +70,7 @@ def histogram_plot_dash(df, x_value, y_value, an_title, y_name, color_name):
 
 
 
-def horizontal_bar_plot(df, x_value, y_value, an_title, y_name, color_name, html_path, reversed_y=False):
+def horizontal_bar_plot_dash(df, x_value, y_value, an_title, y_name, color_name, reversed_y=False):
     """
     :param df: dataframe
     :param x_value: The variable/s to use for the x axis
@@ -86,10 +86,10 @@ def horizontal_bar_plot(df, x_value, y_value, an_title, y_name, color_name, html
                  labels={"variable": "", "value": y_name}, title=an_title)
     if reversed_y:
         fig.update_layout(yaxis=dict(autorange="reversed"))
-    plotly.offline.plot(fig, filename=html_path)
+    return fig
 
 
-def pie_chart(df, values, names, an_title, html_path):
+def pie_chart_dash(df, values, names, an_title):
     """
     :param df: dataframe
     :param values: The variable to be displayed by the chart
@@ -99,4 +99,4 @@ def pie_chart(df, values, names, an_title, html_path):
     :return: a plot
     """
     fig = px.pie(df, values=values, names=names, title=an_title)
-    plotly.offline.plot(fig, filename=html_path)
+    return fig
