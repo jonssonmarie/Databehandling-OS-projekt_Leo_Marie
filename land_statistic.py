@@ -18,6 +18,7 @@ def sort_france_medals(df):
     :param df: dataframe with Name anonymize
     :return: df sorted on France and medals
     """
+    anonymous(df)
     df = df.drop_duplicates(subset=["Event", "Games", "Medal"])
     df = df[['ID', 'Name', 'Sex', 'Age', 'NOC', 'Games', 'Sport', 'Medal']]     # collect the labels needed further on
     df['Medal'] = df['Medal'].astype(str)
@@ -64,11 +65,13 @@ def medals_per_os(df):
     return count_os
 
 
+"""
 def age_per_os(df):
-    """ Count how many participants there are per age for France
+    '''
+    Count how many participants there are per age for France
     :param df: dataframe with Name anonymize
     :return: DataFrame with Age, amount of ages per Age
-    """
+    '''
     all_ages = []
     ages = df["Age"].dropna().unique()
     for age in ages:
@@ -77,3 +80,5 @@ def age_per_os(df):
         all_ages.append(summary)
     count_age = pd.DataFrame(all_ages, columns=["Age", "Amount"]).sort_values(by="Age", ascending=True)
     return count_age
+"""
+
