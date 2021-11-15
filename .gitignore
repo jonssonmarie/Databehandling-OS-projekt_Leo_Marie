@@ -132,3 +132,4 @@ dmypy.json
 *.ipynb
 uppgift1.py
 Data/sex_pie.html
+test_app.py
