@@ -35,6 +35,7 @@ def bar_plot_dash(df, x_value, y_value, an_title, y_name, color_name):
     return fig
 
 
+# ta bort om ej används för offline plot
 def histogram_plot(df, x_value, y_value, an_title, y_name, color_name, html_path):
     """
     :param df: dataframe
@@ -67,7 +68,6 @@ def histogram_plot_dash(df, x_value, y_value, an_title, y_name, color_name):
                        labels={"variable": "", "value": y_name}, title=an_title)
     fig.update_xaxes(type='category')
     return fig
-
 
 
 def horizontal_bar_plot_dash(df, x_value, y_value, an_title, y_name, color_name, reversed_y=False):
