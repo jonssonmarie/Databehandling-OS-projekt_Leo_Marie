@@ -1,7 +1,4 @@
-
 import pandas as pd
-import numpy as np
-from load_data import create_df
 
 
 def possible_medals(athletes_dataframe):
@@ -29,7 +26,7 @@ def seasonize(athletes_dataframe, season="all"):
     return df
 
 
-def age_proofed_dataframe(athletes_dataframe) -> object:
+def age_proofed_dataframe(athletes_dataframe):
     """ Returns a dataframe filtered from athletes without age given, and duplicate athletes names are erased
     :param athletes_dataframe:
     :return:
@@ -39,7 +36,7 @@ def age_proofed_dataframe(athletes_dataframe) -> object:
     return df
 
 
-def age_stats(dataframe, season = "all") -> object:  # Utveckla funktionen så att statistiken kan delas mellan år ?
+def age_stats(dataframe, season="all"):  # Utveckla funktionen så att statistiken kan delas mellan år ?
     """ Takes in a dataframe and returns age statistics for Male and Female athletes as a pandas Series
     :param dataframe:
     :return:
@@ -50,7 +47,7 @@ def age_stats(dataframe, season = "all") -> object:  # Utveckla funktionen så a
     return stats
 
 
-def athletes_by_sex_ratio(dataframe, season="all") -> object:
+def athletes_by_sex_ratio(dataframe, season="all"):
     """
     :param dataframe:
     :param season:
@@ -63,7 +60,7 @@ def athletes_by_sex_ratio(dataframe, season="all") -> object:
     return output_df
 
 
-def athletes_by_sex_ratio_over_time(dataframe, season="all") -> object:
+def athletes_by_sex_ratio_over_time(dataframe, season="all"):
     """
     :param dataframe:
     :param season:
@@ -83,7 +80,8 @@ def athletes_by_sex_ratio_over_time(dataframe, season="all") -> object:
         female_participants.append(female_count)
         male_participants.append(male_count)
 
-    output_df = pd.DataFrame(list(zip(years, female_participants, male_participants)), columns=["Year", "Count F", "Count M"])
+    output_df = pd.DataFrame(list(zip(years, female_participants, male_participants)),
+                             columns=["Year", "Count F", "Count M"])
     output_df["Total"] = output_df["Count F"] + output_df["Count M"]
     output_df["Share M"] = output_df["Count M"] / output_df["Total"]
     output_df["Share F"] = output_df["Count F"] / output_df["Total"]
@@ -100,7 +98,12 @@ def olympic_medalists(athletes_dataframe):
     return df
 
 
-def top_10_nations_medals(dataframe: object, season ="all") -> object:
+def top_10_nations_medals(dataframe: object, season="all"):
+    """
+    :param dataframe: 
+    :param season: 
+    :return: 
+    """
     nations = dataframe["NOC"].unique()
     df = dataframe.dropna(subset=['Medal'])
     df = seasonize(df, season)
@@ -113,13 +116,13 @@ def top_10_nations_medals(dataframe: object, season ="all") -> object:
         silver_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Silver'").shape[0])
         bronze_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Bronze'").shape[0])
 
-    output_df = pd.DataFrame({"Nation" : nations, "Gold" : gold_medals, "Silver" : silver_medals,  "Bronze" : bronze_medals})
-    output_df.eval("Total = Gold + Silver + Bronze", inplace = True)
+    output_df = pd.DataFrame({"Nation": nations, "Gold": gold_medals, "Silver": silver_medals, "Bronze": bronze_medals})
+    output_df.eval("Total = Gold + Silver + Bronze", inplace=True)
     output_df.sort_values(by=['Total'], ascending=False, inplace=True)
     return output_df.head(10)
 
 
-def olympic_years(dataframe) -> list:
+def olympic_years(dataframe):
     """  Takes in a seasonalized dataframe (Summer or Winter) and returns a list of years when olympic games took place
     :param seasonal_dataframe:
     :return:
@@ -130,23 +133,22 @@ def olympic_years(dataframe) -> list:
     return o_years
 
 
-def medal_sets(athletes_dataframe: object, season = "all") -> object:
+def medal_sets(athletes_dataframe: object, season="all"):
     """ Returns a dataframe, with olympic years as keys and number of medal sets distributed as values.
     :param athletes_dataframe:
     :param years:
     :return:
     """
     df = seasonize(athletes_dataframe, season)
-    years = olympic_years(df) 
+    years = olympic_years(df)
     df = athletes_dataframe.dropna(subset=['Medal'])
     df = df.drop_duplicates(subset=["Event", "Games", "Medal", "NOC"])
     print(df.shape)
-  
-     
+
     olympic_medal_distributed = []
     for year in years:
         dataframe = df[df["Year"] == year]
         olympic_medal_distributed.append(len(dataframe["Medal"]))
-        
+
     medals_per_year = pd.DataFrame(list(zip(years, olympic_medal_distributed)), columns=["Year", "Total Medal sets"])
     return medals_per_year
