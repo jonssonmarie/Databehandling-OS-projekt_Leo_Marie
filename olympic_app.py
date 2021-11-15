@@ -13,9 +13,9 @@ from create_plot import histogram_plot, bar_plot, pie_chart, horizontal_bar_plot
 #from sort_data import athletes_by_sex_ratio, athletes_by_sex_ratio_over_time, top_10_nations_medals
 import os
 
-#path = r"Data/"
+path = r"/Users/leolassarade/GitHub-project/Databehandling-OS-projekt_Leo_Marie/Data/"
 
-path = r"C:\Users\trull\PycharmProjects\ITHS_Python_utb\databehandling\Projekt_OS\Data"
+#path = r"C:\Users\trull\PycharmProjects\ITHS_Python_utb\databehandling\Projekt_OS\Data"
 os.chdir(path)
 
 
@@ -50,10 +50,19 @@ dff_options_dropdown = [{"label": symbol, "value": name}
 app = dash.Dash(__name__)   # skapar server
 
 app.layout = dbc.Container([
-    html.H1("Test"),
-    dcc.Dropdown(id = "os-dropdown", options=dff_options_dropdown, value="age_os"),
-    dcc.Graph(id = "graph"),
-    dcc.Store(id = "local-store")
+    dbc.Row([
+        html.H1("Test"),
+        dcc.Dropdown(id = "os-dropdown", options=dff_options_dropdown, value="age_os"),
+        dcc.Graph(id = "graph"),
+        dcc.Store(id = "local-store")
+    ]),
+
+    dbc.Row([
+        html.H1("Leos grejer"),
+        dcc.Dropdown(id = "leo-dropdown", options=dff_options_dropdown, value="age_os"),
+        dcc.Graph(id = "graph2"),
+        dcc.Store(id = "local-store2")
+    ])
 ])
 
 
