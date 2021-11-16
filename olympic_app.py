@@ -107,10 +107,10 @@ def update_graph_1(data):
         figure = histogram_plot_dash(dff, "Age", "Age", "Amount of medals per age for France in OS", "Amount", None)
     elif data == "man_france":
         dff = man_france
-        figure = bar_plot_dash(dff, "Sport", "Amount M", "Male medal per sport, France in OS", "Amount", "Medal")
+        figure = bar_plot_dash(dff, "Sport", "Amount M", "Medal per sport for Men, France in OS", "Amount", "Medal")
     elif data == "female_france":
         dff = female_france
-        figure = bar_plot_dash(dff, "Sport", "Amount F", "Female medal per sport, France in OS", "Amount", "Medal")
+        figure = bar_plot_dash(dff, "Sport", "Amount F", "Medal per sport for Women, France in OS", "Amount", "Medal")
     return figure
 
 
