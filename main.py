@@ -8,8 +8,7 @@ from create_plot import bar_plot, histogram_plot, bar_plot_dash, pie_chart_dash,
 
 # call_plot skall bort senare när olympic_app är klar
 def call_plot(df7, df8,df9, df10, df11, df12):  # tillfällig att det är df1, df2 ... df6
-    pie_chart_dash(df7, "Count", "Sex", "Historical ratio males-females",
-             "../Visualizations/sex_pie.html")
+    pie_chart_dash(df7, "Count", "Sex", "Historical ratio males-females")
 
     bar_plot_dash(df8, "Nation", "Total", "Top 10 Nations, total medals, winter-summer olympics", "count medals", None)
     

@@ -18,4 +18,5 @@ def create_df():
 
     athlete_event = pd.read_csv(file_list[0])
     noc_regions = pd.read_csv(file_list[1])
+    os.chdir('..')
     return athlete_event, noc_regions
