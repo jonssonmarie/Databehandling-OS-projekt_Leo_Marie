@@ -44,7 +44,12 @@ man_france = medals_sport[medals_sport["Amount M"] > 0]
 female_france = medals_sport[medals_sport["Amount F"] > 0]
 sex_ratio = athletes_by_sex_ratio(athlete_event)
 all_time_top_10 = top_10_nations_medals(athlete_event)
+all_time_top_10_summer = top_10_nations_medals(athlete_event, "Summer")
+all_time_top_10_winter = top_10_nations_medals(athlete_event, "Winter")
 sex_ratio_over_years = athletes_by_sex_ratio_over_time(athlete_event)
+sex_ratio_over_years_summer = athletes_by_sex_ratio_over_time(athlete_event, "Summer")
+sex_ratio_over_years_winter = athletes_by_sex_ratio_over_time(athlete_event, "Winter")
+
 
 
 stylesheets = [dbc.themes.MATERIA]
@@ -117,17 +122,35 @@ def update_graph_1(data):
 @app.callback(
     Output('graph2', 'figure'),
     Input("leo-dropdown", 'value'),
+    Input("season_radio", 'value')
 )
-def update_graph_2(data):
+def update_graph_2(data, season):
     if data == "sex_ratio":
         dff = sex_ratio
         figure =  pie_chart_dash(dff, "Count", "Sex", "Historical ratio males-females")
     elif data == "all_time_top_10":
-        dff = all_time_top_10
-        figure = bar_plot_dash(dff, "Nation", "Total", "Top 10 Nations, total medals, winter-summer olympics", "count medals", None)
+        if season == "all":
+            dff = all_time_top_10
+            figure = bar_plot_dash(dff, "Nation", "Total", "Top 10 Nations, total medals, winter-summer olympics", "count medals", None)
+        elif season == "Summer":
+            dff = all_time_top_10_summer
+            figure = bar_plot_dash(dff, "Nation", "Total", "Top 10 Nations, total medals, summer olympics", "count medals", None)
+        elif season == "Winter":
+            dff = all_time_top_10_winter
+            figure = bar_plot_dash(dff, "Nation", "Total", "Top 10 Nations, total medals, winter olympics", "count medals", None)
     elif data == "sex_ratio_over_years":
-        dff = sex_ratio_over_years
-        figure = horizontal_bar_plot_dash(dff, ['Share M','Share F'], 'Year', "Historical repartition of athletes by gender under winter olympics", "Share", None, True)
+        if season == "all":
+            dff = sex_ratio_over_years
+            figure = horizontal_bar_plot_dash(dff, ['Share M','Share F'], 'Year', "Historical repartition of athletes by gender under all olympics", "Share", None, True)
+        elif season == "Summer":
+            dff = sex_ratio_over_years_summer
+            figure = horizontal_bar_plot_dash(dff, ['Share M','Share F'], 'Year', "Historical repartition of athletes by gender under summer olympics", "Share", None, True)
+        elif season =="Winter":
+            dff = sex_ratio_over_years_winter
+            figure = horizontal_bar_plot_dash(dff, ['Share M','Share F'], 'Year', "Historical repartition of athletes by gender under winter olympics", "Share", None, True)
+
+
+
     return figure
 
 
