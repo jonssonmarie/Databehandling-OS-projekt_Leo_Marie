@@ -27,7 +27,6 @@ def bar_plot_dash(df, x_value, y_value, an_title, y_name, color_name):
     :param an_title: The title above the graph
     :param y_name: To be able to set a specified y label name
     :param color_name: the variable to use as legend
-    :param html_path: were the html offline plot is saved
     :return: a plot
     """
     fig = px.bar(df, x=x_value, y=y_value, barmode='group', color=color_name,
@@ -61,7 +60,6 @@ def histogram_plot_dash(df, x_value, y_value, an_title, y_name, color_name):
     :param an_title: The title above the graph
     :param y_name: To be able to set a specified y label name
     :param color_name: the variable to use as legend
-    :param html_path: were the html offline plot is saved
     :return: a plot
     """
     fig = px.histogram(df, x=x_value, y=y_value, barmode='group', color=color_name,
@@ -78,7 +76,6 @@ def horizontal_bar_plot_dash(df, x_value, y_value, an_title, y_name, color_name,
     :param an_title: The title above the graph
     :param y_name: To be able to set a specified y label name
     :param color_name: the variable to use as legend
-    :param html_path: were the html offline plot is saved
     :param reversed_y: Bool, default False, allows to invert y axis values.
     :return: a plot, with barmode = stack
     """
@@ -95,7 +92,6 @@ def pie_chart_dash(df, values, names, an_title):
     :param values: The variable to be displayed by the chart
     :param names: the variable to use as legend
     :param an_title: The title above the graph
-    :param html_path: were the html offline plot is saved
     :return: a plot
     """
     fig = px.pie(df, values=values, names=names, title=an_title)
