@@ -28,8 +28,8 @@ def seasonize(athletes_dataframe, season="all"):
 
 def age_proofed_dataframe(athletes_dataframe):
     """ Returns a dataframe filtered from athletes without age given, and duplicate athletes names are erased
-    :param athletes_dataframe:
-    :return:
+    :param athletes_dataframe: dataframe
+    :return: dataframe
     """
     df = athletes_dataframe.dropna(subset=['Age'])
     df.drop_duplicates(subset="Name", keep='first', inplace=True)
@@ -38,8 +38,9 @@ def age_proofed_dataframe(athletes_dataframe):
 
 def age_stats(dataframe, season="all"):  # Utveckla funktionen så att statistiken kan delas mellan år ?
     """ Takes in a dataframe and returns age statistics for Male and Female athletes as a pandas Series
-    :param dataframe:
-    :return:
+    :param dataframe: dataframe
+    :param season: str 'Winter' or 'Summer', default 'all'
+    :return: pandas series
     """
     df = age_proofed_dataframe(dataframe)
     df = seasonize(df, season)
@@ -49,9 +50,9 @@ def age_stats(dataframe, season="all"):  # Utveckla funktionen så att statistik
 
 def athletes_by_sex_ratio(dataframe, season="all"):
     """
-    :param dataframe:
-    :param season:
-    :return:
+    :param dataframe: dataframe
+    :param season: str 'Winter' or 'Summer', default 'all'
+    :return: dataframe
     """
     df = seasonize(dataframe, season)
     count_M = len(df[df["Sex"] == "M"])
@@ -63,8 +64,8 @@ def athletes_by_sex_ratio(dataframe, season="all"):
 def athletes_by_sex_ratio_over_time(dataframe, season="all"):
     """
     :param dataframe:
-    :param season:
-    :return:
+    :param season: str 'Winter' or 'Summer', default 'all'
+    :return: dataframe
     """
     df = seasonize(dataframe, season)
     df.drop_duplicates(subset="Name", keep='first', inplace=True)
@@ -90,19 +91,18 @@ def athletes_by_sex_ratio_over_time(dataframe, season="all"):
 
 def olympic_medalists(athletes_dataframe):
     """ Takes in the athletes dataframe and returns it filtered with medalists only. A season can be passed as argument.
-    :param athletes_dataframe:
-    :param season:
-    :return:
+    :param athletes_dataframe: dataframe
+    :return: dataframe
     """
     df = athletes_dataframe.dropna(subset=['Medal'])
     return df
 
 
-def top_10_nations_medals(dataframe: object, season="all"):
+def top_10_nations_medals(dataframe, season="all"):
     """
-    :param dataframe: 
-    :param season: 
-    :return: 
+    :param dataframe: dataframe
+    :param season: str 'Winter' or 'Summer', default 'all'
+    :return: dataframe
     """
     nations = dataframe["NOC"].unique()
     df = dataframe.dropna(subset=['Medal'])
@@ -121,11 +121,33 @@ def top_10_nations_medals(dataframe: object, season="all"):
     output_df.sort_values(by=['Total'], ascending=False, inplace=True)
     return output_df.head(10)
 
+def top_5_nations_medals_per_sport(dataframe, sport = "Cross Country Skiing"):
+    """
+    :param dataframe: 
+    :param sport: str, valid input is sport in Sport-column in athlete_events
+    :return: dataframe
+    """
+    nations = dataframe["NOC"].unique()
+    df = dataframe.dropna(subset=['Medal'])
+    df = df.drop_duplicates(subset=["Event", "Games", "Medal", "NOC"])
+    df = df.query(f"Sport == '{sport}'")
+    gold_medals = []
+    silver_medals = []
+    bronze_medals = []
+    for nation in nations:
+        gold_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Gold'").shape[0])
+        silver_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Silver'").shape[0])
+        bronze_medals.append(df.query(f"NOC == '{nation}' & Medal == 'Bronze'").shape[0])
+
+    output_df = pd.DataFrame({"Nation": nations, "Gold": gold_medals, "Silver": silver_medals, "Bronze": bronze_medals})
+    output_df.eval("Total = Gold + Silver + Bronze", inplace=True)
+    output_df.sort_values(by=['Total'], ascending=False, inplace=True)
+    return output_df.head(5)
 
 def olympic_years(dataframe):
     """  Takes in a seasonalized dataframe (Summer or Winter) and returns a list of years when olympic games took place
-    :param seasonal_dataframe:
-    :return:
+    :param seasonal_dataframe: dataframe
+    :return: list
     """
     o_years = dataframe["Year"].unique()
     o_years = list(o_years)
@@ -133,15 +155,15 @@ def olympic_years(dataframe):
     return o_years
 
 
-def medal_sets(athletes_dataframe: object, season="all"):
+def medal_sets(athletes_dataframe, season="all"):
     """ Returns a dataframe, with olympic years as keys and number of medal sets distributed as values.
-    :param athletes_dataframe:
-    :param years:
-    :return:
+    :param athletes_dataframe: dataframe
+    :param season: str 'Winter' or 'Summer', default 'all'
+    :return: dataframe
     """
     df = seasonize(athletes_dataframe, season)
     years = olympic_years(df)
-    df = athletes_dataframe.dropna(subset=['Medal'])
+    df = df.dropna(subset=['Medal'])
     df = df.drop_duplicates(subset=["Event", "Games", "Medal", "NOC"])
     print(df.shape)
 
