@@ -156,7 +156,7 @@ def olympic_years(dataframe):
 
 
 def medal_sets(athletes_dataframe, season="all"):
-    """ Returns a dataframe, with olympic years as keys and number of medal sets distributed as values.
+    """ Returns a dataframe, with olympic years and number of medal sets distributed as columns.
     :param athletes_dataframe: dataframe
     :param season: str 'Winter' or 'Summer', default 'all'
     :return: dataframe
@@ -165,7 +165,6 @@ def medal_sets(athletes_dataframe, season="all"):
     years = olympic_years(df)
     df = df.dropna(subset=['Medal'])
     df = df.drop_duplicates(subset=["Event", "Games", "Medal", "NOC"])
-    print(df.shape)
 
     olympic_medal_distributed = []
     for year in years:
