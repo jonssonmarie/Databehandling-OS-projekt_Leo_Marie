@@ -28,7 +28,7 @@ sex_ratio_over_years_winter = athletes_by_sex_ratio_over_time(athlete_event, "Wi
 stylesheets = [dbc.themes.MATERIA]
 
 dff_dict = dict(Age="age_os", Men="man_france", Women="female_france")
-dff_dict_set_2 = dict(df4 = "sex_ratio", df5 = "all_time_top_10", df6 = "sex_ratio_over_years")
+dff_dict_set_2 = dict(Overall_gender_ratio = "sex_ratio", Medals = "all_time_top_10", Gender_over_time = "sex_ratio_over_years")
 
 dff_options_dropdown = [{"label": symbol, "value": name}
                           for symbol, name in dff_dict.items()]
@@ -44,10 +44,23 @@ app = dash.Dash(__name__, external_stylesheets=stylesheets,
 
 app.layout = dbc.Container([
     dbc.Row([
-        html.H1("France"),
-        dcc.Dropdown(id = "os-dropdown", options=dff_options_dropdown, value="age_os"),
-        dcc.Graph(id = "graph"),
-        dcc.Store(id = "local-store")
+        html.H1("Everything you ever wanted to know about Olympic Games"),
+    ], style = {"margin-block-start": "1em", "margin-block-end" : "2em"}),
+
+    dbc.Row([
+        html.H2("France"),
+        
+        dbc.Col([
+            dcc.Graph(id = "graph"),
+            dcc.Store(id = "local-store")
+        ], width=6, lg=10),
+
+        dbc.Col([
+            dbc.Card([
+                html.H3("Figure", style={"font-size" : "1.45rem", "padding" : "0.4em"}),
+                dcc.Dropdown(id = "os-dropdown", options=dff_options_dropdown, value="age_os"),
+            ])
+        ], width=6, lg=2)
     ]),
 
     
@@ -56,23 +69,27 @@ app.layout = dbc.Container([
         html.H2("All nations"),
 
         dbc.Col([
-            dcc.Dropdown(id = "leo-dropdown", options=dff_options_dropdown_all, value="sex_ratio"),
-        ], width=6, lg=3), #xs="12", sm="12", md="12", lg='4', xl="3"),
+            dcc.Graph(id = "graph2"),
+            dcc.Store(id = "local-store2")
+        ], width=6, lg=10),
 
         dbc.Col([
             dbc.Card([
-            dcc.RadioItems(id='season_radio', className="m-1",
-                                options=season_options,
-                                value='all'
-                            ),
-            ], className= "ms-3")
-        ], width=6, lg=3)  #xs="12", sm="12", md="12", lg='4', xl="3")      
+                html.H3("Figure", style={"font-size" : "1.45rem", "padding" : "0.4em"}),
+                dcc.Dropdown(id = "leo-dropdown", options=dff_options_dropdown_all, value="sex_ratio")
+            ], style={"margin-bottom": "1em"}),
+            dbc.Card([
+                html.H3("Options", style={"font-size" : "1.45rem", "padding" : "0.4em"}),
+                dcc.RadioItems(id='season_radio', className="m-1",
+                                    options=season_options,
+                                    value='all',
+                                    labelStyle={'margin-right' : '0.5em', 'display' : 'block'},
+                                    inputStyle={'margin' : '0.2em'}
+                                )
+            ]),
+        ], width=6, lg=2)  
     ]),
 
-    dbc.Row([
-    dcc.Graph(id = "graph2"),
-    dcc.Store(id = "local-store2")
-    ])
 ])
 
 
