@@ -1,5 +1,3 @@
-# här skriver i ett utkast innan in i main.py
-
 from dash import dcc, html
 import dash
 import dash_bootstrap_components as dbc
@@ -98,6 +96,10 @@ app.layout = dbc.Container([
     Input("os-dropdown", 'value'),
 )
 def update_graph_1(data):
+    """
+    :param data: DataFrames for France in the Olympics
+    :return: plot to heroku
+    """
     if data == "age_os":
         dff = medals_france     # age_os
         figure = histogram_plot_dash(dff, "Age", "Age", "Amount of medals per age for France in OS", "Amount", None)
@@ -116,6 +118,11 @@ def update_graph_1(data):
     Input("season_radio", 'value')
 )
 def update_graph_2(data, season):
+    """
+    :param data: DataFrames for alla nations in the olympics
+    :param season: winter, summer or all
+    :return: a plot to heroku
+    """
     if data == "sex_ratio":
         dff = sex_ratio
         figure =  pie_chart_dash(dff, "Count", "Sex", "Historical ratio males-females")
