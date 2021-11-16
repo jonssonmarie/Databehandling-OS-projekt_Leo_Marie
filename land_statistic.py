@@ -63,22 +63,3 @@ def medals_per_os(df):
             medal_per_os.append(summary)
     count_os = (pd.DataFrame(medal_per_os, columns=["Game", "Medal", "Amount"])).sort_values(by="Game", ascending=True)
     return count_os
-
-
-"""
-def age_per_os(df):
-    '''
-    Count how many participants there are per age for France
-    :param df: dataframe with Name anonymize
-    :return: DataFrame with Age, amount of ages per Age
-    '''
-    all_ages = []
-    ages = df["Age"].dropna().unique()
-    for age in ages:
-        count = np.sum(df["Age"] == age)
-        summary = [age, count]
-        all_ages.append(summary)
-    count_age = pd.DataFrame(all_ages, columns=["Age", "Amount"]).sort_values(by="Age", ascending=True)
-    return count_age
-"""
-
