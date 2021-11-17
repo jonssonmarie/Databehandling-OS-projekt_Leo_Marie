@@ -1,9 +1,5 @@
 import time
-
-from land_statistic import sort_france_medals, count_medals_per_sport, medals_per_os
-from load_data import create_df
-from create_plot import bar_plot, histogram_plot
-import olympic_app
+import olympic_app  # om '#'import olympic_app då skapas inte dash på webben
 
 
 def offline_plot(df1, df2, df3, df4):
@@ -33,4 +29,10 @@ def main():
 
 
 if __name__ == '__main__':
+    from land_statistic import sort_france_medals, count_medals_per_sport, medals_per_os
+    from load_data import create_df
+    from create_plot import bar_plot, histogram_plot
     main()
+else:
+    #import olympic_app  # om '#' är borta så skapas offlineplotar men inte dash
+    olympic_app

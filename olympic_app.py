@@ -151,5 +151,5 @@ def update_graph_2(data, season):
     return figure
 
 
-if __name__ == '__main__':
+if __name__ == 'olympic_app':   # om '__main__' så hittar den inte filerna
     app.run_server(debug=True)
