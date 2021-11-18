@@ -1,8 +1,14 @@
 import time
-import olympic_app  # om '#'import olympic_app då skapas inte dash på webben
 
 
 def offline_plot(df1, df2, df3, df4):
+    """ Plot and save the html-plot to a folder
+    :param df1: medals_sport
+    :param df2: medals_os
+    :param df3: medals_france
+    :param df4: athletics
+    :return: None
+    """
     bar_plot(df1, "Sport", "Amount", "Amount of medals per sport for France in OS", "Amount", "Medal",
              "Visualizations/France_medals_per_sport.html")
     bar_plot(df2, "Game", "Amount", "Amount of medals per game for France in OS", "Amount", "Medal",
@@ -34,5 +40,5 @@ if __name__ == '__main__':
     from create_plot import bar_plot, histogram_plot
     main()
 else:
-    #import olympic_app  # om '#' är borta så skapas offlineplotar men inte dash
+    import olympic_app
     olympic_app
