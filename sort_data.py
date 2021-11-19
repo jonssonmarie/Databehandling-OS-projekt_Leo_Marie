@@ -127,6 +127,10 @@ def top_5_nations_medals_per_sport(dataframe, sport = "Cross Country Skiing"):
     :param sport: str, valid input is sport in Sport-column in athlete_events
     :return: dataframe
     """
+    sport = sport.title()
+    if not sport in dataframe["Sport"].unique():
+        raise ValueError (f"{sport} is not an olympic sport")
+    
     nations = dataframe["NOC"].unique()
     df = dataframe.dropna(subset=['Medal'])
     df = df.drop_duplicates(subset=["Event", "Games", "Medal", "NOC"])
