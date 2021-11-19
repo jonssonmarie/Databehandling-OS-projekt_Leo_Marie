@@ -39,6 +39,3 @@ if __name__ == '__main__':
     from load_data import create_df
     from create_plot import bar_plot, histogram_plot
     main()
-else:
-    import olympic_app
-    olympic_app
